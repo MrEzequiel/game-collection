@@ -2,15 +2,18 @@ const darkTheme = {
   font: 'Open Sans, sans-serif',
   colors: {
     black: '#000',
-    gray50: '#333333',
-    gray100: '#666666',
-    gray200: '#999999',
-    gray300: '#cccccc',
-    gray400: '#eeeeee',
+    gray50: '#111111',
+    gray100: '#333333',
+    gray200: '#555555',
+    gray300: '#777777',
+    gray400: '#999999',
+    gray500: '#BBBBBB',
+    gray600: '#DDDDDD',
+    gray700: '#EEEEEE',
     white: '#fff',
 
-    primary: '#333C83',
-    secundary: '#F24A72',
+    primary: '#F24A72',
+    secundary: '#333C83',
   },
 }
 
