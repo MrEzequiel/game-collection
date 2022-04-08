@@ -1,5 +1,5 @@
 const darkTheme = {
-  font: 'Open Sans, sans-serif',
+  font: 'Poppins, sans-serif',
   colors: {
     black: '#000',
     gray50: '#111111',

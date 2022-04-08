@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseURL = 'https://api.rawg.io/api/'
+const baseURL = 'https://api.rawg.io/api'
 
 const api = axios.create({
   baseURL,
