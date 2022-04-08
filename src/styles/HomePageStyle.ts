@@ -1,6 +1,11 @@
 import styled from 'styled-components'
 
 export const HomePageContainer = styled.div`
+  max-width: 960px;
+  padding: 0 20px;
+  margin: 0 auto;
+  margin-top: 40px;
+
   & > h2 {
     color: ${props => props.theme.colors.white};
     font-weight: 500;
@@ -72,6 +77,11 @@ export const HomePageContainer = styled.div`
       padding-bottom: 15px;
       margin-bottom: 15px;
       border-bottom: 1px solid #1c1c1c;
+
+      &:hover {
+        color: ${props => props.theme.colors.primary};
+        text-decoration: underline;
+      }
     }
 
     .game-info {

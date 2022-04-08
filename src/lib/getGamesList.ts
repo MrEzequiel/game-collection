@@ -1,9 +1,10 @@
+import IGame from '../interface/IGame'
 import api from '../services/api'
 
-const getGamesList = async () => {
+const getGamesList = async (perPage = 50): Promise<IGame[]> => {
   const games = await api.get('/games', {
     params: {
-      page_size: 50,
+      page_size: perPage,
     },
   })
   return games.data.results

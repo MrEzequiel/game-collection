@@ -7,6 +7,7 @@ import Document, {
 } from 'next/document'
 import { ServerStyleSheet } from 'styled-components'
 
+// @ts-ignore
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
     const sheet = new ServerStyleSheet()
@@ -35,7 +36,7 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html lang="pt-br">
+      <Html lang="en">
         <Head>
           <meta charSet="utf-8" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />

@@ -3,7 +3,6 @@ import Head from 'next/head'
 import { ThemeProvider } from 'styled-components'
 import Header from '../components/Header'
 import GlobalStyle from '../styles/GlobalStyle'
-import MainContainer from '../styles/MainContainer'
 import darkTheme from '../styles/theme/dark'
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -15,9 +14,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
       <Header />
 
-      <MainContainer>
-        <Component {...pageProps} />
-      </MainContainer>
+      <Component {...pageProps} />
       <GlobalStyle />
     </ThemeProvider>
   )
