@@ -3,6 +3,7 @@ const darkTheme = {
   colors: {
     black: '#000',
     gray50: '#111111',
+    gray75: '#181818',
     gray100: '#333333',
     gray200: '#555555',
     gray300: '#777777',

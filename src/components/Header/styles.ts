@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const HeaderContainer = styled.header`
-  background: ${({ theme }) => theme.colors.gray50};
+  background: ${({ theme }) => theme.colors.black};
   padding: 20px 0;
   box-shadow: 0 4px 8px -4px rgba(0, 0, 0, 0.2);
 
@@ -17,5 +17,12 @@ export const HeaderContainer = styled.header`
       color: ${({ theme }) => theme.colors.primary};
       font-size: 2.4rem;
     }
+  }
+
+  .logo-wrapper {
+    cursor: pointer;
+    position: relative;
+    width: 120px;
+    height: 60px;
   }
 `
