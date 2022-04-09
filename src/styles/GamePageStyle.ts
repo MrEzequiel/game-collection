@@ -33,6 +33,7 @@ export const GameImage = styled.div<IGamePageStyle>`
     height: 100%;
     width: 100%;
     display: block;
+    z-index: 8;
     background: linear-gradient(
       90deg,
       #000000 -16.96%,
@@ -43,16 +44,16 @@ export const GameImage = styled.div<IGamePageStyle>`
   &:before {
     content: '';
     position: absolute;
-    bottom: 0;
+    bottom: -1px;
     left: 0;
     width: 0;
     display: block;
     height: 0;
     border-style: solid;
-    border-width: 30px 0 0 100vw;
+    border-width: 40px 0 0 100vw;
     border-color: transparent transparent transparent
       ${props => props.theme.colors.gray50};
-    z-index: 2;
+    z-index: 15;
   }
 
   .image-game-cover {
@@ -90,7 +91,7 @@ export const GameImage = styled.div<IGamePageStyle>`
 
   .title-game {
     overflow: hidden;
-    z-index: 3;
+    z-index: 10;
     position: absolute;
     top: 0;
     left: 50%;
@@ -153,9 +154,17 @@ export const GameTitleContainer = styled.div`
   }
 `
 
-export const GameSection = styled.section`
+interface IGameSectionProps {
+  divider?: boolean
+}
+
+export const GameSection = styled.section<IGameSectionProps>`
   padding: 40px 0;
-  border-bottom: 1px solid ${props => props.theme.colors.gray100};
+  ${props =>
+    props.divider &&
+    css`
+      border-bottom: 1px solid ${props => props.theme.colors.gray100};
+    `}
 `
 
 export const Divider = styled.div`
@@ -240,6 +249,22 @@ export const GameAuthors = styled(GameSection)`
   }
 `
 
+export const SectionMetacriticAndInfo = styled(GameSection)`
+  display: grid;
+  grid-template-columns: 3fr auto 4fr;
+  gap: 40px;
+
+  @media (max-width: 700px) {
+    grid-template-columns: 1fr;
+
+    .divider {
+      width: 100%;
+      height: 1px;
+      margin: 0;
+    }
+  }
+`
+
 export const MetacriticList = styled.ul`
   display: flex;
   flex-direction: column;
@@ -269,5 +294,44 @@ export const InformationItem = styled.li`
 
     line-height: 1.1;
     color: ${props => props.theme.colors.gray600};
+  }
+`
+
+export const StoreContainer = styled.ul`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+  row-gap: 30px;
+  padding-top: 10px;
+`
+
+export const StoreItem = styled.li`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 10px;
+  background: ${props => props.theme.colors.gray75};
+  border: 1px solid ${props => props.theme.colors.gray100};
+  border-radius: 5px;
+
+  .store-image {
+    position: relative;
+    top: -20px;
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  }
+
+  .store-info {
+    margin-top: -10px;
+    text-align: center;
+
+    a {
+      color: ${props => props.theme.colors.gray400};
+      font-size: 1.4rem;
+    }
   }
 `

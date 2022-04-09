@@ -60,6 +60,20 @@ interface ISingleGame {
     slug: string
   }[]
 
+  stores: {
+    id: number
+    store: {
+      domain: string
+      games_count: number
+      id: number
+      image_background: string
+      name: string
+      slug: string
+    }
+
+    url: string
+  }[]
+
   added_by_status: {
     [key in
       | 'beaten'

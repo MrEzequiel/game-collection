@@ -15,8 +15,16 @@ import {
   InformationContainer,
   InformationItem,
   MetacriticList,
+  SectionMetacriticAndInfo,
+  StoreContainer,
+  StoreItem,
 } from '../../styles/GamePageStyle'
-import { MdDomain, MdTextSnippet, MdWysiwyg } from 'react-icons/md'
+import {
+  MdDomain,
+  MdTextSnippet,
+  MdWysiwyg,
+  MdLocalGroceryStore,
+} from 'react-icons/md'
 import { useTheme } from 'styled-components'
 import MetacriticItem from '../../components/MetacriticItem'
 
@@ -53,7 +61,6 @@ interface IProps {
 }
 
 const GamePage: NextPage<IProps> = ({ game }) => {
-  console.log(game)
   const theme = useTheme()
   const [imageLoaded, setImageLoaded] = useState(false)
   const [tagLimit, setTagLimit] = useState(5)
@@ -72,6 +79,7 @@ const GamePage: NextPage<IProps> = ({ game }) => {
             <Image
               src={game.background_image_additional}
               alt={game.name}
+              style={{ zIndex: 5 }}
               layout="fill"
               objectFit="cover"
               priority
@@ -110,7 +118,7 @@ const GamePage: NextPage<IProps> = ({ game }) => {
       </GameImage>
 
       <GameInformations>
-        <GameDescription>
+        <GameDescription divider>
           <GameTitleContainer>
             <MdTextSnippet color={theme.colors.primary} fontSize="2rem" />
             <h2>Description</h2>
@@ -124,7 +132,7 @@ const GamePage: NextPage<IProps> = ({ game }) => {
           />
         </GameDescription>
 
-        <GameAuthors>
+        <GameAuthors divider>
           <GameTitleContainer>
             <MdDomain color={theme.colors.primary} fontSize="2rem" />
             <h2>Authors</h2>
@@ -165,6 +173,7 @@ const GamePage: NextPage<IProps> = ({ game }) => {
                           alt={publisher.name}
                           layout="fill"
                           objectFit="cover"
+                          quality="30"
                         />
                       </div>
                     )}
@@ -176,13 +185,7 @@ const GamePage: NextPage<IProps> = ({ game }) => {
           </div>
         </GameAuthors>
 
-        <GameSection
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '3fr auto 4fr',
-            gap: '40px',
-          }}
-        >
+        <SectionMetacriticAndInfo divider>
           <div>
             <GameTitleContainer>
               <div className="icon-wrapper">
@@ -212,7 +215,7 @@ const GamePage: NextPage<IProps> = ({ game }) => {
             </MetacriticList>
           </div>
 
-          <Divider />
+          <Divider className="divider" />
 
           <div>
             <GameTitleContainer>
@@ -285,6 +288,40 @@ const GamePage: NextPage<IProps> = ({ game }) => {
               </InformationItem>
             </InformationContainer>
           </div>
+        </SectionMetacriticAndInfo>
+
+        <GameSection>
+          <GameTitleContainer>
+            <MdLocalGroceryStore color={theme.colors.primary} fontSize="2rem" />
+            <h2>Store</h2>
+          </GameTitleContainer>
+
+          <StoreContainer>
+            {game.stores.map(store => (
+              <StoreItem key={store.id}>
+                <div className="store-image">
+                  <Image
+                    src={store.store.image_background}
+                    alt={store.store.name}
+                    layout="fill"
+                    objectFit="cover"
+                    quality="30"
+                  />
+                </div>
+
+                <div className="store-info">
+                  <h4>{store.store.name}</h4>
+                  <a
+                    href={`https://${store.store.domain}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    link to store
+                  </a>
+                </div>
+              </StoreItem>
+            ))}
+          </StoreContainer>
         </GameSection>
       </GameInformations>
     </>
