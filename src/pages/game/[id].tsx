@@ -5,11 +5,13 @@ import ISingleGame from '../../interface/ISingleGame'
 import getGamesList from '../../lib/getGamesList'
 import getIndividualGame from '../../lib/getIndividualGame'
 import {
+  GameAuthors,
   GameDescription,
   GameImage,
   GameInformations,
+  GameTitleContainer,
 } from '../../styles/GamePageStyle'
-import { MdTextSnippet } from 'react-icons/md'
+import { MdDomain, MdTextSnippet } from 'react-icons/md'
 import { useTheme } from 'styled-components'
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -98,10 +100,10 @@ const GamePage: NextPage<IProps> = ({ game }) => {
 
       <GameInformations>
         <GameDescription>
-          <div className="title-container">
+          <GameTitleContainer>
             <MdTextSnippet color={theme.colors.primary} fontSize="2rem" />
             <h2>Description</h2>
-          </div>
+          </GameTitleContainer>
 
           <div
             className="description-container"
@@ -110,6 +112,58 @@ const GamePage: NextPage<IProps> = ({ game }) => {
             }}
           />
         </GameDescription>
+
+        <GameAuthors>
+          <GameTitleContainer>
+            <MdDomain color={theme.colors.primary} fontSize="2rem" />
+            <h2>Authors</h2>
+          </GameTitleContainer>
+
+          <div className="authors-container">
+            <div className="card-container">
+              <h4>Developers</h4>
+
+              <ul>
+                {game.developers.map(developer => (
+                  <li key={developer.id}>
+                    {!!developer.image_background && (
+                      <div className="card-image">
+                        <Image
+                          src={developer.image_background}
+                          alt={developer.name}
+                          layout="fill"
+                          objectFit="cover"
+                        />
+                      </div>
+                    )}
+                    <p>{developer.name}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="card-container">
+              <h4>Publishers</h4>
+              <ul>
+                {game.publishers.map(publisher => (
+                  <li key={publisher.id}>
+                    {!!publisher.image_background && (
+                      <div className="card-image">
+                        <Image
+                          src={publisher.image_background}
+                          alt={publisher.name}
+                          layout="fill"
+                          objectFit="cover"
+                        />
+                      </div>
+                    )}
+                    <p>{publisher.name}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </GameAuthors>
       </GameInformations>
     </>
   )

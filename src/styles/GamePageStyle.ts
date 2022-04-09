@@ -136,20 +136,22 @@ export const GameImage = styled.div<IGamePageStyle>`
 export const GameInformations = styled.div`
   max-width: 960px;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 0 20px 40px;
 `
 
-export const GameDescription = styled.section`
-  padding-bottom: 40px;
+export const GameTitleContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+`
+
+export const GameSection = styled.section`
+  padding: 40px 0;
   border-bottom: 1px solid ${props => props.theme.colors.gray100};
+`
 
-  .title-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-  }
-
+export const GameDescription = styled(GameSection)`
   .description-container {
     p {
       line-height: 1.5em;
@@ -164,6 +166,61 @@ export const GameDescription = styled.section`
       color: ${props => props.theme.colors.gray600};
       margin-bottom: 5px;
       padding-top: 5px;
+    }
+  }
+`
+
+export const GameAuthors = styled(GameSection)`
+  .authors-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 20px;
+
+    .card-container {
+      & > h4 {
+        font-size: 1.4rem;
+        color: ${props => props.theme.colors.gray400};
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        margin-top: 10px;
+
+        li {
+          padding: 10px;
+          background: ${props => props.theme.colors.gray75};
+          border: 1px solid ${props => props.theme.colors.gray100};
+          border-radius: 5px;
+
+          flex: 1;
+          flex-basis: 150px;
+          display: flex;
+          gap: 10px;
+          align-items: center;
+
+          p {
+            font-size: 1.6rem;
+            line-height: 1.2;
+            color: ${props => props.theme.colors.gray600};
+          }
+
+          .card-image {
+            flex-shrink: 0;
+            position: relative;
+            width: 50px;
+            height: 50px;
+            border-radius: 3px;
+            overflow: hidden;
+            border: 1px solid ${props => props.theme.colors.gray50};
+          }
+        }
+      }
     }
   }
 `
