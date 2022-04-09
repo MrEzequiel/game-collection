@@ -48,7 +48,6 @@ interface IProps {
 
 const GamePage: NextPage<IProps> = ({ game }) => {
   const theme = useTheme()
-  console.log(game)
   const [imageLoaded, setImageLoaded] = useState(false)
 
   return (
