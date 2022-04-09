@@ -73,6 +73,28 @@ export default createGlobalStyle`
     color: ${({ theme }) => theme.colors.gray700};
   }
 
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: ${({ theme }) => theme.colors.gray75};
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: ${({ theme }) => theme.colors.gray200};
+    border-radius: 4px;
+    border: 2px solid ${({ theme }) => theme.colors.gray50};
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: ${({ theme }) => theme.colors.gray300};
+  }
+
   button,
   input,
   textarea {

@@ -144,11 +144,26 @@ export const GameTitleContainer = styled.div`
   align-items: center;
   gap: 10px;
   margin-bottom: 15px;
+
+  .icon-wrapper {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
 `
 
 export const GameSection = styled.section`
   padding: 40px 0;
   border-bottom: 1px solid ${props => props.theme.colors.gray100};
+`
+
+export const Divider = styled.div`
+  width: 1px;
+  height: 100%;
+  background: ${props => props.theme.colors.gray100};
+  margin: 0 20px;
+  border-radius: 1px;
 `
 
 export const GameDescription = styled(GameSection)`
@@ -222,5 +237,37 @@ export const GameAuthors = styled(GameSection)`
         }
       }
     }
+  }
+`
+
+export const MetacriticList = styled.ul`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 15px;
+`
+
+export const InformationContainer = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`
+
+export const InformationItem = styled.li`
+  h4 {
+    font-size: 1.4rem;
+    color: ${props => props.theme.colors.gray300};
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  & > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+
+    line-height: 1.1;
+    color: ${props => props.theme.colors.gray600};
   }
 `

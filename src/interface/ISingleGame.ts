@@ -5,7 +5,19 @@ interface ISingleGame {
   name_original: string
   description: string
   description_raw: string
+
   metacritic: number
+  metacritic_platforms: {
+    metascore: number
+    platform: {
+      name: string
+      platform: number
+      slug: string
+    }
+    url: string
+  }[]
+  metacritic_url: string
+
   released: string
   tba: boolean
   updated: string
@@ -32,6 +44,22 @@ interface ISingleGame {
     slug: string
   }[]
 
+  genres: {
+    games_count: number
+    id: number
+    image_background: string
+    name: string
+    slug: string
+  }[]
+  tags: {
+    games_count: number
+    id: number
+    image_background: string
+    language: string
+    name: string
+    slug: string
+  }[]
+
   added_by_status: {
     [key in
       | 'beaten'
@@ -47,6 +75,12 @@ interface ISingleGame {
   movies_count: number
   creators_count: number
   achievements_count: number
+
+  esrb_rating: {
+    id: number
+    name: string
+    slug: string
+  }
 
   platforms: {
     platform: {

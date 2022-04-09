@@ -5,17 +5,23 @@ import ISingleGame from '../../interface/ISingleGame'
 import getGamesList from '../../lib/getGamesList'
 import getIndividualGame from '../../lib/getIndividualGame'
 import {
+  Divider,
   GameAuthors,
   GameDescription,
   GameImage,
   GameInformations,
+  GameSection,
   GameTitleContainer,
+  InformationContainer,
+  InformationItem,
+  MetacriticList,
 } from '../../styles/GamePageStyle'
-import { MdDomain, MdTextSnippet } from 'react-icons/md'
+import { MdDomain, MdTextSnippet, MdWysiwyg } from 'react-icons/md'
 import { useTheme } from 'styled-components'
+import MetacriticItem from '../../components/MetacriticItem'
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const gamesForStaticPaths = await getGamesList(5)
+  const gamesForStaticPaths = await getGamesList(6)
 
   const paths = gamesForStaticPaths.map(game => ({
     params: {
@@ -47,8 +53,10 @@ interface IProps {
 }
 
 const GamePage: NextPage<IProps> = ({ game }) => {
+  console.log(game)
   const theme = useTheme()
   const [imageLoaded, setImageLoaded] = useState(false)
+  const [tagLimit, setTagLimit] = useState(5)
 
   return (
     <>
@@ -71,6 +79,8 @@ const GamePage: NextPage<IProps> = ({ game }) => {
               onLoad={() => {
                 setImageLoaded(true)
               }}
+              placeholder="blur"
+              blurDataURL="/placeholder.png"
             />
           </div>
         )}
@@ -87,6 +97,8 @@ const GamePage: NextPage<IProps> = ({ game }) => {
               onLoad={() => {
                 setImageLoaded(true)
               }}
+              placeholder="blur"
+              blurDataURL="/placeholder.png"
             />
           </div>
         )}
@@ -163,6 +175,117 @@ const GamePage: NextPage<IProps> = ({ game }) => {
             </div>
           </div>
         </GameAuthors>
+
+        <GameSection
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '3fr auto 4fr',
+            gap: '40px',
+          }}
+        >
+          <div>
+            <GameTitleContainer>
+              <div className="icon-wrapper">
+                <Image
+                  src="/metacritic-icon.svg"
+                  alt="metacritic"
+                  layout="fill"
+                />
+              </div>
+              <h2>Metacritic</h2>
+            </GameTitleContainer>
+
+            <MetacriticList>
+              {game.metacritic_platforms.length === 0 && (
+                <MetacriticItem
+                  metascore={game.metacritic}
+                  url={game.metacritic_url}
+                />
+              )}
+
+              {game.metacritic_platforms.map(metacritic => (
+                <MetacriticItem
+                  {...metacritic}
+                  key={metacritic.platform.slug}
+                />
+              ))}
+            </MetacriticList>
+          </div>
+
+          <Divider />
+
+          <div>
+            <GameTitleContainer>
+              <MdWysiwyg color={theme.colors.primary} fontSize="2rem" />
+              <h2>Informations</h2>
+            </GameTitleContainer>
+
+            <InformationContainer>
+              <InformationItem>
+                <h4>Platforms</h4>
+
+                <div>
+                  {game.platforms.map((platform, index) => (
+                    <span key={platform.platform.slug}>
+                      {platform.platform.name}
+                      {index === game.platforms.length - 1 ? '' : ', '}
+                    </span>
+                  ))}
+                </div>
+              </InformationItem>
+
+              <InformationItem>
+                <h4>Release Date</h4>
+                <p>{new Date(game.released).toLocaleDateString()}</p>
+              </InformationItem>
+
+              <InformationItem>
+                <h4>Genres</h4>
+                <div>
+                  {game.genres.map((genre, index) => (
+                    <span key={genre.id}>
+                      {genre.name}
+                      {index === game.genres.length - 1 ? '' : ', '}
+                    </span>
+                  ))}
+                </div>
+              </InformationItem>
+
+              <InformationItem>
+                <h4>Tags</h4>
+                <div>
+                  {game.tags.slice(1, tagLimit).map((tag, index) => (
+                    <span key={tag.id}>
+                      {tag.name}
+                      {index === game.tags.slice(1, tagLimit).length - 1
+                        ? ''
+                        : ', '}
+                    </span>
+                  ))}
+                </div>
+                {game.tags.length > tagLimit && (
+                  <span
+                    style={{
+                      color: theme.colors.secundary,
+                      cursor: 'pointer',
+                      display: 'block',
+                      maxWidth: 'max-content',
+                    }}
+                    onClick={() => setTagLimit(prevLimit => prevLimit + 6)}
+                  >
+                    load more...
+                  </span>
+                )}
+              </InformationItem>
+
+              <InformationItem>
+                <h4>ESRB Rating</h4>
+
+                <p>{game.esrb_rating.name}</p>
+              </InformationItem>
+            </InformationContainer>
+          </div>
+        </GameSection>
       </GameInformations>
     </>
   )
