@@ -150,6 +150,9 @@ export const GameTitleContainer = styled.div`
     position: relative;
     width: 20px;
     height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex-shrink: 0;
   }
 `

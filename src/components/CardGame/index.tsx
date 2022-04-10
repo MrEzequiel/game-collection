@@ -5,6 +5,7 @@ import Link from 'next/link'
 
 import { CardGameWrapper } from './styles'
 import IGame from '../../interface/IGame'
+import useObserveElement from '../../hooks/useObserveElement'
 
 interface IProps {
   game: IGame
@@ -12,30 +13,10 @@ interface IProps {
 }
 
 const CardGame: FC<IProps> = ({ game, index }) => {
-  const [isVisible, setIsVisible] = useState(true)
   const cardRef = useRef<HTMLLIElement>(null)
-
-  useEffect(() => {
-    const callbackIntersection = ([entry]: IntersectionObserverEntry[]) => {
-      if (entry.isIntersecting) {
-        setIsVisible(true)
-      } else {
-        setIsVisible(false)
-      }
-    }
-
-    const observer = new IntersectionObserver(callbackIntersection, {
-      rootMargin: '0px 0px -50px 0px',
-    })
-
-    if (cardRef.current) {
-      observer.observe(cardRef.current)
-    }
-
-    return () => {
-      observer.disconnect()
-    }
-  }, [])
+  const isVisible = useObserveElement(cardRef, {
+    rootMargin: '0px 0px -100px 0px',
+  })
 
   return (
     <CardGameWrapper
