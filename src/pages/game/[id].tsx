@@ -99,13 +99,11 @@ const GamePage: NextPage<IProps> = ({ game }) => {
             <Image
               src={game.background_image}
               alt={game.name}
+              style={{ zIndex: imageLoaded ? 5 : -1 }}
               layout="fill"
               objectFit="cover"
               quality="80"
               priority
-              onLoad={() => {
-                setImageLoaded(true)
-              }}
               placeholder="blur"
               blurDataURL="/placeholder.png"
             />
