@@ -90,7 +90,7 @@ interface ISingleGame {
   creators_count: number
   achievements_count: number
 
-  esrb_rating: {
+  esrb_rating?: {
     id: number
     name: string
     slug: string

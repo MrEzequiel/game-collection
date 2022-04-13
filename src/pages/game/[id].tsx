@@ -28,6 +28,7 @@ import {
 import { useTheme } from 'styled-components'
 import MetacriticItem from '../../components/MetacriticItem'
 import Animation from '../../components/Animation'
+import Error from 'next/error'
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const gamesForStaticPaths = await getGamesList(6)
@@ -47,11 +48,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ctx => {
   const id = ctx.params!.id as string
 
-  const game = await getIndividualGame(id)
+  const { data: game, statusText } = await getIndividualGame(id)
 
   return {
     props: {
       game,
+      errorCode: statusText === 'OK' ? null : 404,
     },
     revalidate: 60 * 60 * 24, // 1 day
   }
@@ -59,12 +61,17 @@ export const getStaticProps: GetStaticProps = async ctx => {
 
 interface IProps {
   game: ISingleGame
+  errorCode: number | null
 }
 
-const GamePage: NextPage<IProps> = ({ game }) => {
+const GamePage: NextPage<IProps> = ({ game, errorCode }) => {
   const theme = useTheme()
   const [imageLoaded, setImageLoaded] = useState(false)
   const [tagLimit, setTagLimit] = useState(5)
+
+  if (errorCode || !game) {
+    return <Error statusCode={errorCode || 404} />
+  }
 
   return (
     <>
@@ -324,13 +331,15 @@ const GamePage: NextPage<IProps> = ({ game }) => {
                 </InformationItem>
               </Animation>
 
-              <Animation animationDuration={1150}>
-                <InformationItem>
-                  <h4>ESRB Rating</h4>
+              {!!game.esrb_rating && (
+                <Animation animationDuration={1150}>
+                  <InformationItem>
+                    <h4>ESRB Rating</h4>
 
-                  <p>{game.esrb_rating.name}</p>
-                </InformationItem>
-              </Animation>
+                    <p>{game.esrb_rating.name}</p>
+                  </InformationItem>
+                </Animation>
+              )}
             </InformationContainer>
           </div>
         </SectionMetacriticAndInfo>
